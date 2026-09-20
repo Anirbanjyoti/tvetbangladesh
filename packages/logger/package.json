@@ -1,0 +1,22 @@
+{
+  "name": "@tvet/logger",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shared Pino structured logger with correlation ID support",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "pino": "^9.3.2"
+  },
+  "devDependencies": {
+    "@tvet/config": "*",
+    "pino-pretty": "^11.2.1",
+    "typescript": "^5.5.4"
+  }
+}

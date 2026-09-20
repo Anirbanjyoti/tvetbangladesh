@@ -1,0 +1,45 @@
+name: TVET Platform CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Lint, Typecheck & Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Format Check (Prettier)
+        run: npm run format:check
+
+      - name: Lint Codebase (ESLint)
+        run: npm run lint
+
+      - name: Static Typecheck (TypeScript Strict)
+        run: npm run typecheck
+
+      - name: Execute Tests (Vitest / Supertest)
+        run: npm run test
+
+      - name: Build All Applications & Packages (Turborepo)
+        run: npm run build
