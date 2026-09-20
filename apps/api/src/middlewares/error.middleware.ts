@@ -3,12 +3,7 @@ import { AppError } from "../common/errors/app-error.js";
 import { ResponseFormatter } from "../common/response/api-response.js";
 import { logger } from "./request-logger.js";
 
-export function errorHandler(
-  err: Error,
-  req: Request,
-  res: Response,
-  _next: NextFunction
-): void {
+export function errorHandler(err: Error, req: Request, res: Response, _next: NextFunction): void {
   const requestId = req.headers["x-request-id"] as string | undefined;
 
   if (err instanceof AppError) {
@@ -18,13 +13,7 @@ export function errorHandler(
       logger.warn({ err, requestId }, err.message);
     }
 
-    ResponseFormatter.error(
-      res,
-      err.message,
-      err.statusCode,
-      err.errorCode,
-      err.details
-    );
+    ResponseFormatter.error(res, err.message, err.statusCode, err.errorCode, err.details);
     return;
   }
 

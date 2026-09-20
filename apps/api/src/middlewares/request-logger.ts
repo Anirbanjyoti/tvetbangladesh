@@ -19,15 +19,18 @@ export function requestLogger(req: Request, res: Response, next: NextFunction): 
 
   res.on("finish", () => {
     const duration = Date.now() - start;
-    logger.info({
-      requestId,
-      method: req.method,
-      url: req.originalUrl || req.url,
-      statusCode: res.statusCode,
-      durationMs: duration,
-      ip: req.ip,
-      userAgent: req.get("user-agent"),
-    }, `${req.method} ${req.originalUrl || req.url} ${res.statusCode} in ${duration}ms`);
+    logger.info(
+      {
+        requestId,
+        method: req.method,
+        url: req.originalUrl || req.url,
+        statusCode: res.statusCode,
+        durationMs: duration,
+        ip: req.ip,
+        userAgent: req.get("user-agent"),
+      },
+      `${req.method} ${req.originalUrl || req.url} ${res.statusCode} in ${duration}ms`
+    );
   });
 
   next();

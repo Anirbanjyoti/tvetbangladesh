@@ -6,11 +6,14 @@ export interface HealthCheckResponse {
   version: string;
   uptime: number;
   timestamp: string;
-  checks?: Record<string, {
-    status: HealthStatus;
-    latencyMs?: number;
-    message?: string;
-  }>;
+  checks?: Record<
+    string,
+    {
+      status: HealthStatus;
+      latencyMs?: number;
+      message?: string;
+    }
+  >;
 }
 
 export interface ProbeResponse {

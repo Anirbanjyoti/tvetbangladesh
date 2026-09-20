@@ -1,5 +1,4 @@
 import express, { Express } from "express";
-import cors from "express";
 import corsMiddleware from "cors";
 import helmet from "helmet";
 import { env } from "./config/env.js";
@@ -14,7 +13,7 @@ export function createApp(): Express {
 
   // Basic security and parsing
   app.use(helmet());
-  
+
   const allowedOrigins = env.CORS_ORIGINS.split(",").map((o) => o.trim());
   app.use(
     corsMiddleware({
